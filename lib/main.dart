@@ -1,6 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'blocs/blocs.dart';
 import 'ui/screens/screens.dart';
@@ -19,19 +20,24 @@ class MyApp extends StatelessWidget {
         BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(),
         ),
+        BlocProvider<PDFBloc>(
+          create: (context) => PDFBloc(),
+        ),
       ],
       child: BlocSelector<ThemeBloc, ThemeState, ThemeMode>(
         selector: (state) => state.themeMode,
         builder: (context, themeMode) => MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'Nikola Jović',
           theme: FlexThemeData.light(
-            scheme: FlexScheme.mandyRed,
+            scheme: FlexScheme.brandBlue,
             useMaterial3: true,
+            fontFamily: GoogleFonts.lato().fontFamily,
           ),
           darkTheme: FlexThemeData.dark(
-            scheme: FlexScheme.mandyRed,
+            scheme: FlexScheme.cyanM3,
             useMaterial3: true,
+            fontFamily: GoogleFonts.lato().fontFamily,
           ),
           themeMode: themeMode,
           home: const HomeScreen(title: 'Nikola Jović'),
