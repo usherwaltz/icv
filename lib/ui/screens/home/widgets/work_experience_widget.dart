@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../blocs/blocs.dart';
 import '../../../../utils/utils.dart';
 
+/// This class is used to display the work experience of the person.
 class WorkExperienceWidget extends StatelessWidget {
   final double width;
   final bool isPDF;
@@ -23,7 +24,7 @@ class WorkExperienceWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(SizeUtils.contentSectionsRadius),
         boxShadow: [
           if (!isPDF)
             BoxShadow(
@@ -34,7 +35,7 @@ class WorkExperienceWidget extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.all(SizeUtils.workExperienceHeadlinePadding),
         child: Column(
           children: [
             Row(
@@ -44,7 +45,7 @@ class WorkExperienceWidget extends StatelessWidget {
                   size: Theme.of(context).textTheme.headlineMedium?.fontSize,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                const SizedBox(width: 16.0),
+                const SizedBox(width: SizeUtils.pageMargins),
                 Text(
                   'Work Experience',
                   style: Theme.of(context).textTheme.headlineMedium,
@@ -52,6 +53,8 @@ class WorkExperienceWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 40.0),
+
+            // There are multiple ways of achieving this result, but I found this one to be the most readable and easy to understand.
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
@@ -121,6 +124,8 @@ List<ExperienceBlock> get experienceBlocks => [
       ),
     ];
 
+/// Being that modularization is one of the most important things in Flutter development,
+/// I decided to create a separate widget for each experience block to showcase an example of how to do it.
 class ExperienceBlock extends StatelessWidget {
   final String company;
   final String position;
@@ -165,6 +170,8 @@ class ExperienceBlock extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16.0),
+
+        // There are multiple ways of achieving this result, but I found this one to be the most readable and easy to understand.
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => const SizedBox(height: 8.0),

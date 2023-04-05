@@ -6,6 +6,7 @@ import '../../../../assets/assets.dart';
 import '../../../../blocs/blocs.dart';
 import '../../../../utils/utils.dart';
 
+/// This class is used to display basic information about the person.
 class BasicInfoWidget extends StatelessWidget {
   final double width;
   final bool isPDF;
@@ -24,7 +25,7 @@ class BasicInfoWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(SizeUtils.contentSectionsRadius),
         boxShadow: [
           if (!isPDF)
             BoxShadow(

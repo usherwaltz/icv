@@ -6,6 +6,7 @@ part 'theme_bloc.freezed.dart';
 part 'theme_event.dart';
 part 'theme_state.dart';
 
+/// The 'ThemeBloc' class is responsible for handling the theme changes.
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(ThemeState.initial()) {
     on<ThemeChanged>(_onThemeChanged);

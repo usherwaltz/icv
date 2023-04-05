@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // In this project there is no need for defining the 'MultiBlocProvider' widget.
+    // Reason why I decided to use it here is because I wanted to showcase how I would use it in a bigger project.
+    // For single purpose UI elements that would trigger a certain event, I would opt for the "BlocProvider" widget instead.
     return MultiBlocProvider(
       providers: [
         BlocProvider<ThemeBloc>(

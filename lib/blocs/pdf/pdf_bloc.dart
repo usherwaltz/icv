@@ -14,6 +14,7 @@ part 'pdf_bloc.freezed.dart';
 part 'pdf_event.dart';
 part 'pdf_state.dart';
 
+/// This class is responsible for generating PDF file from the widget.
 class PDFBloc extends Bloc<PDFEvent, PDFState> {
   PDFBloc() : super(PDFState.initial()) {
     on<PDFGenerated>(_onPDFGenerated);
