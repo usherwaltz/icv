@@ -37,10 +37,9 @@ class BasicInfoWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FadeInImage.assetNetwork(
+          Image.asset(
+            Assets.nikola,
             width: width,
-            placeholder: Assets.user,
-            image: Assets.nikola,
           ),
           _AboutSection(isPDF: isPDF),
           const Divider(indent: 16.0, endIndent: 16.0),
