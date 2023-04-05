@@ -18,92 +18,21 @@ class ContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+
     return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      // Hiding scrollbar when generating PDF file
+      behavior:
+          !forceWidth ? ScrollConfiguration.of(context) : ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
         padding: EdgeInsets.zero,
         child: Center(
           child: Column(
             children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
-                child: !forceWidth
-                    ? LayoutBuilder(
-                        builder: (context, constraints) {
-                          double basicInfoWidth;
-                          double workExperienceWidth;
-                          if (constraints.maxWidth > 600) {
-                            final maxWidth = SizeUtils.maxConstraintWidth(constraints.maxWidth);
-                            basicInfoWidth = maxWidth * 0.3;
-                            workExperienceWidth = maxWidth * 0.7;
-                            return _buildRow(
-                              basicInfoWidth: basicInfoWidth,
-                              workExperienceWidth: workExperienceWidth,
-                            );
-                          }
-
-                          basicInfoWidth = workExperienceWidth = constraints.maxWidth;
-                          return _buildColumn(
-                            basicInfoWidth: basicInfoWidth,
-                            workExperienceWidth: workExperienceWidth,
-                          );
-                        },
-                      )
-                    : Builder(
-                        builder: (context) {
-                          const basicInfoWidth = (SizeUtils.maxWidgetWidth * 0.3);
-                          const workExperienceWidth = (SizeUtils.maxWidgetWidth * 0.7);
-                          return _buildRow(
-                            basicInfoWidth: basicInfoWidth,
-                            workExperienceWidth: workExperienceWidth,
-                          );
-                        },
-                      ),
-              ),
+              _buildContent(context),
               if (!forceWidth)
-                Container(
-                  height: 60,
-                  width: double.infinity,
-                  color: ColorUtils.getContainerColor(themeMode),
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: SizeUtils.pageMargins),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  Assets.flutterLogo,
-                                  height: 32.0,
-                                ),
-                                const SizedBox(width: 8.0),
-                                Text(
-                                  'Powered by Flutter',
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        color: Theme.of(context).colorScheme.primary,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                html.window.open('https://github.com/usherwaltz/nikolajovic', "_blank");
-                              },
-                              child: Text(
-                                'Source Code',
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                _buildFooter(
+                  context,
+                  themeMode,
                 ),
             ],
           ),
@@ -112,7 +41,99 @@ class ContentWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildRow({
+  Widget _buildContent(BuildContext context) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
+      child: !forceWidth
+          ? LayoutBuilder(
+              builder: (context, constraints) {
+                double basicInfoWidth;
+                double workExperienceWidth;
+                if (constraints.maxWidth > 600) {
+                  final maxWidth = SizeUtils.maxConstraintWidth(constraints.maxWidth);
+                  basicInfoWidth = maxWidth * 0.3;
+                  workExperienceWidth = maxWidth * 0.7;
+                  return _buildContentRow(
+                    basicInfoWidth: basicInfoWidth,
+                    workExperienceWidth: workExperienceWidth,
+                  );
+                }
+
+                basicInfoWidth = workExperienceWidth = constraints.maxWidth;
+                return _buildContentColumn(
+                  basicInfoWidth: basicInfoWidth,
+                  workExperienceWidth: workExperienceWidth,
+                );
+              },
+            )
+          : Builder(
+              builder: (context) {
+                const basicInfoWidth = (SizeUtils.maxWidgetWidth * 0.3);
+                const workExperienceWidth = (SizeUtils.maxWidgetWidth * 0.7);
+                return _buildContentRow(
+                  basicInfoWidth: basicInfoWidth,
+                  workExperienceWidth: workExperienceWidth,
+                );
+              },
+            ),
+    );
+  }
+
+  Widget _buildFooter(
+    BuildContext context,
+    ThemeMode themeMode,
+  ) {
+    return Container(
+      height: SizeUtils.bottomWidgetHeight,
+      width: double.infinity,
+      color: ColorUtils.getContainerColor(themeMode),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: SizeUtils.pageMargins),
+            child: _buildFooterContent(context),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFooterContent(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            SvgPicture.asset(
+              Assets.flutterLogo,
+              height: 32.0,
+            ),
+            const SizedBox(width: 8.0),
+            Text(
+              'Powered by Flutter',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
+          ],
+        ),
+        TextButton(
+          onPressed: () {
+            html.window.open('https://github.com/usherwaltz/nikolajovic', "_blank");
+          },
+          child: Text(
+            'Source Code',
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildContentRow({
     required double basicInfoWidth,
     required double workExperienceWidth,
   }) {
@@ -137,7 +158,7 @@ class ContentWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildColumn({
+  Widget _buildContentColumn({
     required double basicInfoWidth,
     required double workExperienceWidth,
   }) {

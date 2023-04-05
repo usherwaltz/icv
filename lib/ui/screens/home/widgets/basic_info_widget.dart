@@ -52,6 +52,7 @@ class BasicInfoWidget extends StatelessWidget {
   }
 }
 
+/// Section Wrapper, used to wrap each section in the [BasicInfoWidget]
 class _Section extends StatelessWidget {
   final _TileWidget sectionDescription;
   final List<_TileWidget> children;
@@ -82,6 +83,7 @@ class _Section extends StatelessWidget {
   }
 }
 
+/// Basic Info about the person
 class _AboutSection extends StatelessWidget {
   final bool isPDF;
   const _AboutSection({
@@ -137,6 +139,7 @@ class _AboutSection extends StatelessWidget {
   }
 }
 
+/// Technical Skills about the person
 class _SkillsSection extends StatelessWidget {
   const _SkillsSection({Key? key}) : super(key: key);
 
@@ -171,6 +174,7 @@ class _SkillsSection extends StatelessWidget {
   }
 }
 
+/// Languages the person speaks
 class _LanguagesSection extends StatelessWidget {
   const _LanguagesSection({Key? key}) : super(key: key);
 
@@ -195,6 +199,7 @@ class _LanguagesSection extends StatelessWidget {
   }
 }
 
+/// Widget that represents a single tile in the [BasicInfoWidget]
 class _TileWidget extends StatefulWidget {
   final IconData? icon;
   final String text;
@@ -217,6 +222,7 @@ class _TileWidget extends StatefulWidget {
   State<_TileWidget> createState() => _TileWidgetState();
 }
 
+/// State of the [_TileWidget]
 class _TileWidgetState extends State<_TileWidget> {
   bool emailHidden = true;
 

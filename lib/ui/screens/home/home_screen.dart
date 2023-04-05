@@ -37,37 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
       listener: (context, state) {
         switch (state.uiAction) {
           case BlocStateUIAction.success:
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Center(
-                  child: Text(
-                    'PDF Successfully Generated',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onError,
-                        ),
-                  ),
-                ),
-                duration: const Duration(seconds: 2),
-                backgroundColor: Colors.green,
-              ),
-            );
+            _showSnackBar(context: context);
             break;
+
           case BlocStateUIAction.error:
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Center(
-                  child: Text(
-                    'Oops, something went wrong',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.onError,
-                        ),
-                  ),
-                ),
-                duration: const Duration(seconds: 2),
-                backgroundColor: Theme.of(context).colorScheme.error,
-              ),
+            _showSnackBar(
+              context: context,
+              isError: true,
             );
             break;
+
           default:
             break;
         }
@@ -75,51 +54,87 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         return Stack(
           children: [
-            const Positioned.fill(
-              child: Scaffold(
-                appBar: AppBarWidget(),
-                body: ContentWidget(),
-              ),
-            ),
-            Positioned.fill(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 500),
-                child: state.uiAction == BlocStateUIAction.inProgress
-                    ? Container(
-                        color: Colors.black.withOpacity(0.8),
-                        child: Center(
-                          child: Text(
-                            'Generating PDF . . .',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ),
-            ),
-            Positioned.fill(
-              child: AnimatedSwitcher(
-                transitionBuilder: (child, animation) => FadeTransition(
-                  opacity: animation,
-                  child: child,
-                ),
-                duration: const Duration(milliseconds: 500),
-                child: loading
-                    ? Container(
-                        color: Colors.white,
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                    : null,
-              ),
-            ),
+            _buildContent(),
+            _buildGeneratingOverlay(state.uiAction),
+            _buildLoadingOverlay(),
           ],
         );
       },
+    );
+  }
+
+  void _showSnackBar({
+    required BuildContext context,
+    bool isError = false,
+  }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      _buildSnackBar(isError: isError),
+    );
+  }
+
+  _buildSnackBar({bool isError = false}) {
+    return SnackBar(
+      content: Center(
+        child: Text(
+          !isError ? 'PDF Successfully Generated' : 'Oops, something went wrong',
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onError,
+              ),
+        ),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: !isError ? Colors.green : Theme.of(context).colorScheme.error,
+    );
+  }
+
+  Positioned _buildContent() {
+    return const Positioned.fill(
+      child: Scaffold(
+        appBar: AppBarWidget(),
+        body: ContentWidget(),
+      ),
+    );
+  }
+
+  Positioned _buildGeneratingOverlay(BlocStateUIAction uiAction) {
+    return Positioned.fill(
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        child: uiAction == BlocStateUIAction.inProgress
+            ? Container(
+                color: Colors.black.withOpacity(0.8),
+                child: Center(
+                  child: Text(
+                    'Generating PDF . . .',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              )
+            : Container(),
+      ),
+    );
+  }
+
+  Positioned _buildLoadingOverlay() {
+    return Positioned.fill(
+      child: AnimatedSwitcher(
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+        duration: const Duration(milliseconds: 500),
+        child: loading
+            ? Container(
+                color: Colors.white,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : null,
+      ),
     );
   }
 }
