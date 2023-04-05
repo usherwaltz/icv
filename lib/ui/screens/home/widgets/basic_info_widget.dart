@@ -37,7 +37,11 @@ class BasicInfoWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(Assets.nikola),
+          FadeInImage.assetNetwork(
+            width: width,
+            placeholder: Assets.user,
+            image: Assets.nikola,
+          ),
           _AboutSection(isPDF: isPDF),
           const Divider(indent: 16.0, endIndent: 16.0),
           const _SkillsSection(),
@@ -62,7 +66,7 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(SizeUtils.pageMargins),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

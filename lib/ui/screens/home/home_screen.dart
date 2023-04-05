@@ -5,13 +5,30 @@ import '../../../blocs/blocs.dart';
 import '../../../utils/utils.dart';
 import '../widgets/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String title;
 
   const HomeScreen({
     super.key,
     required this.title,
   });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(seconds: 2));
+      setState(() => loading = false);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +98,23 @@ class HomeScreen extends StatelessWidget {
                         ),
                       )
                     : Container(),
+              ),
+            ),
+            Positioned.fill(
+              child: AnimatedSwitcher(
+                transitionBuilder: (child, animation) => FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ),
+                duration: const Duration(milliseconds: 500),
+                child: loading
+                    ? Container(
+                        color: Colors.white,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : null,
               ),
             ),
           ],

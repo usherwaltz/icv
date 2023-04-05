@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nikolajovic/utils/utils.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../../../assets/assets.dart';
+import '../../../blocs/blocs.dart';
 import '../home/widgets/widgets.dart';
 
 class ContentWidget extends StatelessWidget {
@@ -15,6 +17,7 @@ class ContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: SingleChildScrollView(
@@ -22,17 +25,17 @@ class ContentWidget extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Container(
-                constraints: const BoxConstraints(maxWidth: Constants.maxWidgetWidth),
-                padding: !forceWidth ? const EdgeInsets.all(16.0) : EdgeInsets.zero,
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
                 child: !forceWidth
                     ? LayoutBuilder(
                         builder: (context, constraints) {
                           double basicInfoWidth;
                           double workExperienceWidth;
                           if (constraints.maxWidth > 600) {
-                            basicInfoWidth = constraints.maxWidth * 0.3 - 8.0;
-                            workExperienceWidth = constraints.maxWidth * 0.7 - 8.0;
+                            final maxWidth = SizeUtils.maxConstraintWidth(constraints.maxWidth);
+                            basicInfoWidth = maxWidth * 0.3;
+                            workExperienceWidth = maxWidth * 0.7;
                             return _buildRow(
                               basicInfoWidth: basicInfoWidth,
                               workExperienceWidth: workExperienceWidth,
@@ -48,8 +51,8 @@ class ContentWidget extends StatelessWidget {
                       )
                     : Builder(
                         builder: (context) {
-                          const basicInfoWidth = (Constants.maxWidgetWidth * 0.3);
-                          const workExperienceWidth = (Constants.maxWidgetWidth * 0.7);
+                          const basicInfoWidth = (SizeUtils.maxWidgetWidth * 0.3);
+                          const workExperienceWidth = (SizeUtils.maxWidgetWidth * 0.7);
                           return _buildRow(
                             basicInfoWidth: basicInfoWidth,
                             workExperienceWidth: workExperienceWidth,
@@ -61,12 +64,12 @@ class ContentWidget extends StatelessWidget {
                 Container(
                   height: 60,
                   width: double.infinity,
-                  color: Theme.of(context).colorScheme.inversePrimary,
+                  color: ColorUtils.getContainerColor(themeMode),
                   child: Center(
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: Constants.maxWidgetWidth),
+                      constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: SizeUtils.pageMargins),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -74,13 +77,13 @@ class ContentWidget extends StatelessWidget {
                               children: [
                                 SvgPicture.asset(
                                   Assets.flutterLogo,
-                                  height: 40.0,
+                                  height: 32.0,
                                 ),
                                 const SizedBox(width: 8.0),
                                 Text(
                                   'Powered by Flutter',
                                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        color: Theme.of(context).colorScheme.onBackground,
+                                        color: Theme.of(context).colorScheme.primary,
                                       ),
                                 ),
                               ],
@@ -89,7 +92,12 @@ class ContentWidget extends StatelessWidget {
                               onPressed: () {
                                 html.window.open('https://github.com/usherwaltz/nikolajovic', "_blank");
                               },
-                              child: const Text('Source Code'),
+                              child: Text(
+                                'Source Code',
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
@@ -108,21 +116,24 @@ class ContentWidget extends StatelessWidget {
     required double basicInfoWidth,
     required double workExperienceWidth,
   }) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        BasicInfoWidget(
-          isPDF: forceWidth,
-          width: basicInfoWidth,
-        ),
-        if (!forceWidth) const SizedBox(width: 16.0),
-        WorkExperienceWidget(
-          isPDF: forceWidth,
-          width: workExperienceWidth,
-        ),
-      ],
+    return Padding(
+      padding: !forceWidth ? const EdgeInsets.all(16.0) : EdgeInsets.zero,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BasicInfoWidget(
+            isPDF: forceWidth,
+            width: basicInfoWidth,
+          ),
+          if (!forceWidth) const SizedBox(width: SizeUtils.rowColumnDivider),
+          WorkExperienceWidget(
+            isPDF: forceWidth,
+            width: workExperienceWidth,
+          ),
+        ],
+      ),
     );
   }
 
@@ -136,6 +147,7 @@ class ContentWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         BasicInfoWidget(width: basicInfoWidth),
+        const SizedBox(height: SizeUtils.rowColumnDivider),
         WorkExperienceWidget(width: workExperienceWidth),
       ],
     );

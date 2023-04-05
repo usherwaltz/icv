@@ -72,7 +72,7 @@ List<ExperienceBlock> get experienceBlocks => [
         company: 'The Symbol DOO',
         position: 'Flutter Developer',
         fromDate: 'May 2022',
-        toDate: 'April 2022',
+        toDate: 'April 2023',
         responsibilities: [
           'Working on a an in-house project.',
           'Flutter Bloc, Animation, Firebase, Theming, VOiP, Push Notifications, Http Sockets etc.',
@@ -173,7 +173,7 @@ class ExperienceBlock extends StatelessWidget {
           itemCount: responsibilities.length,
           itemBuilder: (context, index) {
             final responsibility = responsibilities[index];
-            return Text('• $responsibility');
+            return Text('•   $responsibility');
           },
         ),
       ],

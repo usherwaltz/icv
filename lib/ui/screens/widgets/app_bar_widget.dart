@@ -36,7 +36,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text(
                   'Nikola Jović',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
               ),
               Row(

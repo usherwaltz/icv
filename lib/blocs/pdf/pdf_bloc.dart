@@ -41,33 +41,43 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
   }
 
   Future<void> generatePDF(Widget widget) async {
-    final screenshotController = ScreenshotController();
-    Uint8List pngImageBytes = await screenshotController.captureFromWidget(
-      widget,
-      pixelRatio: 1.5,
-      targetSize: const Size(Constants.maxWidgetWidth, 2000),
-    );
+    try {
+      final screenshotController = ScreenshotController();
+      Uint8List pngImageBytes = await screenshotController.captureFromWidget(
+        widget,
+        pixelRatio: 1.5,
+        targetSize: const Size(SizeUtils.maxWidgetWidth, 2000),
+      );
 
-    final pdf = pw.Document();
+      final pdf = pw.Document();
 
-    final image = pw.MemoryImage(
-      pngImageBytes,
-    );
+      final image = pw.MemoryImage(
+        pngImageBytes,
+      );
 
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) {
-          return pw.Container(
-            child: pw.Image(image),
-          );
-        },
-        margin: const pw.EdgeInsets.all(Constants.pdfMargins),
-      ),
-    );
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) {
+            return pw.Container(
+              child: pw.Image(image),
+            );
+          },
+          margin: const pw.EdgeInsets.all(SizeUtils.pdfMargins),
+        ),
+      );
 
-    final content = base64Encode(await pdf.save());
-    AnchorElement(href: "data:application/octet-stream;charset=utf-16le;base64,$content")
-      ..setAttribute("download", "Nikola Jović CV.pdf")
-      ..click();
+      final file = await pdf.save();
+
+      final content = base64Encode(file);
+
+      // create anchor element to enable file download on web
+      final anchor = AnchorElement(href: "data:application/octet-stream;charset=utf-16le;base64,$content");
+      anchor.target = "_blank";
+      anchor.download = "Nikola Jović CV.pdf";
+      anchor.click();
+      anchor.remove();
+    } catch (e) {
+      rethrow;
+    }
   }
 }
