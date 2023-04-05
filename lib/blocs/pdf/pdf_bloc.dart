@@ -28,10 +28,7 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
         uiAction: BlocStateUIAction.inProgress,
       ));
 
-      await generatePDF(
-        event.widget,
-        event.screenshotController,
-      );
+      await generatePDF(event.widget);
 
       emit(state.copyWith(
         uiAction: BlocStateUIAction.success,
@@ -43,14 +40,12 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
     }
   }
 
-  Future<void> generatePDF(
-    Widget widget,
-    ScreenshotController screenshotController,
-  ) async {
+  Future<void> generatePDF(Widget widget) async {
+    final screenshotController = ScreenshotController();
     Uint8List pngImageBytes = await screenshotController.captureFromWidget(
       widget,
       pixelRatio: 1.5,
-      targetSize: const Size(1024 + 32, 2000),
+      targetSize: const Size(Constants.maxWidgetWidth, 2000),
     );
 
     final pdf = pw.Document();
@@ -62,11 +57,11 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
-          return pw.Center(
+          return pw.Container(
             child: pw.Image(image),
           );
         },
-        margin: const pw.EdgeInsets.all(16.0),
+        margin: const pw.EdgeInsets.all(Constants.pdfMargins),
       ),
     );
 

@@ -1,49 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../blocs/blocs.dart';
+import '../../../../utils/utils.dart';
 
 class WorkExperienceWidget extends StatelessWidget {
   final double width;
+  final bool isPDF;
 
   const WorkExperienceWidget({
     Key? key,
     required this.width,
+    this.isPDF = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+
+    return Container(
       width: width,
-      child: Card(
-        elevation: 16.0,
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.work,
-                    size: Theme.of(context).textTheme.headlineMedium?.fontSize,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  const SizedBox(width: 16.0),
-                  Text(
-                    'Work Experience',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40.0),
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                separatorBuilder: (context, index) => const SizedBox(height: 40.0),
-                itemCount: experienceBlocks.length,
-                itemBuilder: (context, index) => experienceBlocks[index],
-              ),
-            ],
-          ),
+      decoration: BoxDecoration(
+        color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          if (!isPDF)
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8.0,
+              offset: const Offset(0, 4),
+            ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.work,
+                  size: Theme.of(context).textTheme.headlineMedium?.fontSize,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 16.0),
+                Text(
+                  'Work Experience',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ],
+            ),
+            const SizedBox(height: 40.0),
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              separatorBuilder: (context, index) => const SizedBox(height: 40.0),
+              itemCount: experienceBlocks.length,
+              itemBuilder: (context, index) => experienceBlocks[index],
+            ),
+          ],
         ),
       ),
     );

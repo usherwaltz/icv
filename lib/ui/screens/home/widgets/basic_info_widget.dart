@@ -1,36 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../assets/assets.dart';
+import '../../../../blocs/blocs.dart';
+import '../../../../utils/utils.dart';
 
 class BasicInfoWidget extends StatelessWidget {
   final double width;
+  final bool isPDF;
 
   const BasicInfoWidget({
     Key? key,
     required this.width,
+    this.isPDF = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+
+    return Container(
       width: width,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        elevation: 16.0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(Assets.nikola),
-            const _AboutSection(),
-            const Divider(indent: 16.0, endIndent: 16.0),
-            const _SkillsSection(),
-            const Divider(indent: 16.0, endIndent: 16.0),
-            const _LanguagesSection(),
-          ],
-        ),
+      decoration: BoxDecoration(
+        color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
+        borderRadius: BorderRadius.circular(8.0),
+        boxShadow: [
+          if (!isPDF)
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8.0,
+              offset: const Offset(0, 4),
+            ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(Assets.nikola),
+          _AboutSection(isPDF: isPDF),
+          const Divider(indent: 16.0, endIndent: 16.0),
+          const _SkillsSection(),
+          const Divider(indent: 16.0, endIndent: 16.0),
+          const _LanguagesSection(),
+        ],
       ),
     );
   }
@@ -67,7 +80,11 @@ class _Section extends StatelessWidget {
 }
 
 class _AboutSection extends StatelessWidget {
-  const _AboutSection({Key? key}) : super(key: key);
+  final bool isPDF;
+  const _AboutSection({
+    Key? key,
+    this.isPDF = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +106,10 @@ class _AboutSection extends StatelessWidget {
           icon: FontAwesomeIcons.briefcase,
           text: 'Senior Flutter Developer',
         ),
-        const _TileWidget(
+        _TileWidget(
           icon: FontAwesomeIcons.solidEnvelope,
           text: 'nikola@jovic.id',
-          isEmail: true,
+          isEmail: !isPDF,
         ),
         const _TileWidget(
           icon: FontAwesomeIcons.house,
@@ -104,7 +121,7 @@ class _AboutSection extends StatelessWidget {
         ),
         const _TileWidget(
           icon: FontAwesomeIcons.solidHourglass,
-          text: '09:00 AM - 06:00 PM',
+          text: '09:00 AM - 05:00 PM',
         ),
         const _TileWidget(
           icon: FontAwesomeIcons.chartSimple,
@@ -214,10 +231,13 @@ class _TileWidgetState extends State<_TileWidget> {
       child: Row(
         crossAxisAlignment: widget.bold ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
-          FaIcon(
-            widget.icon,
-            size: widget.bold ? 24.0 : 20.0,
-            color: Theme.of(context).colorScheme.primary,
+          SizedBox(
+            width: widget.bold ? 24.0 : 20.0,
+            child: FaIcon(
+              widget.icon,
+              size: widget.bold ? 24.0 : 20.0,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
           const SizedBox(width: 8.0),
           Flexible(

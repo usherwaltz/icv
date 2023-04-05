@@ -1,7 +1,6 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:nikolajovic/utils/utils.dart';
 
 import 'blocs/blocs.dart';
 import 'ui/screens/screens.dart';
@@ -29,16 +28,8 @@ class MyApp extends StatelessWidget {
         builder: (context, themeMode) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Nikola Jović',
-          theme: FlexThemeData.light(
-            scheme: FlexScheme.brandBlue,
-            useMaterial3: true,
-            fontFamily: GoogleFonts.lato().fontFamily,
-          ),
-          darkTheme: FlexThemeData.dark(
-            scheme: FlexScheme.cyanM3,
-            useMaterial3: true,
-            fontFamily: GoogleFonts.lato().fontFamily,
-          ),
+          theme: ColorUtils.lightTheme,
+          darkTheme: ColorUtils.darkTheme,
           themeMode: themeMode,
           home: const HomeScreen(title: 'Nikola Jović'),
         ),

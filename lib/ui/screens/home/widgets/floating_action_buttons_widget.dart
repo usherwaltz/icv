@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nikolajovic/ui/screens/home/widgets/content_widget.dart';
+import 'package:nikolajovic/ui/screens/widgets/content_widget.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../../blocs/blocs.dart';
@@ -57,7 +57,6 @@ class _DownloadPDFButtonState extends State<_DownloadPDFButton> {
                   data: Theme.of(context),
                   child: const ContentWidget(forceWidth: true),
                 ),
-                screenshotController: screenshotController,
               ),
             );
       },
