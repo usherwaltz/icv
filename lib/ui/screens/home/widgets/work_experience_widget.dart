@@ -35,6 +35,7 @@ class WorkExperienceWidget extends StatelessWidget {
               ),
               const SizedBox(height: 40.0),
               ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => const SizedBox(height: 40.0),
@@ -148,6 +149,7 @@ class ExperienceBlock extends StatelessWidget {
         ),
         const SizedBox(height: 16.0),
         ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => const SizedBox(height: 8.0),
           shrinkWrap: true,
           padding: EdgeInsets.zero,

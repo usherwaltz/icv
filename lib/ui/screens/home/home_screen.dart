@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nikolajovic/utils/utils.dart';
+import 'package:universal_html/html.dart' as html;
 
 import '../../../assets/assets.dart';
 import '../../../blocs/blocs.dart';
@@ -115,7 +116,9 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      html.window.open('https://github.com/usherwaltz/nikolajovic', "_blank");
+                    },
                     child: const Text('Source Code'),
                   ),
                 ],
