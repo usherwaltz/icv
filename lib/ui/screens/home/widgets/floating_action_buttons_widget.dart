@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nikolajovic/ui/screens/widgets/content_widget.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../../blocs/blocs.dart';
+import '../../widgets/widgets.dart';
 
 class FloatingActionButtonsWidget extends StatelessWidget {
   const FloatingActionButtonsWidget({Key? key}) : super(key: key);

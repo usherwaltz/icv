@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nikolajovic/utils/utils.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../../../assets/assets.dart';
 import '../../../blocs/blocs.dart';
+import '../../../utils/utils.dart';
 import '../home/widgets/widgets.dart';
 
 class ContentWidget extends StatelessWidget {
