@@ -42,9 +42,9 @@ class BasicInfoWidget extends StatelessWidget {
             width: width,
           ),
           _AboutSection(isPDF: isPDF),
-          const Divider(indent: 16.0, endIndent: 16.0),
+          const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
           const _SkillsSection(),
-          const Divider(indent: 16.0, endIndent: 16.0),
+          const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
           const _LanguagesSection(),
         ],
       ),
@@ -107,7 +107,7 @@ class _AboutSection extends StatelessWidget {
         ),
         const _TileWidget(
           icon: FontAwesomeIcons.briefcase,
-          text: 'Senior Flutter Developer',
+          text: 'Flutter Developer',
         ),
         _TileWidget(
           icon: FontAwesomeIcons.solidEnvelope,
@@ -129,7 +129,7 @@ class _AboutSection extends StatelessWidget {
         const _TileWidget(
           icon: FontAwesomeIcons.chartSimple,
           text:
-              'Nikola is a senior Flutter developer with just over six years of experience since Flutter was in it\'s beta state. \n\nHe enjoys working on unique opportunities and writing clean, structured, performant, documented, and well-tested code. \n\nWith life-long love for programming, music and technology in general, you can expect creative and precise solutions to your future projects.',
+              'Nikola is a Flutter developer with just over six years of experience since Flutter was in it\'s beta state. \n\nHe enjoys working on unique opportunities and writing clean, structured, performant, documented, and well-tested code. \n\nWith life-long love for programming, music and technology in general, you can expect creative and precise solutions to your future projects. \n\nAs a former student on the academy of arts, you can also expect some awesome tunes on those company team buildings.',
           paddingBottom: 0.0,
         ),
       ],

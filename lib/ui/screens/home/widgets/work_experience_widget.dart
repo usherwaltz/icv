@@ -70,7 +70,7 @@ class WorkExperienceWidget extends StatelessWidget {
 List<ExperienceBlock> get experienceBlocks => [
       const ExperienceBlock(
         company: 'The Symbol DOO',
-        position: 'Flutter Developer',
+        position: 'Senior Flutter Developer',
         fromDate: 'May 2022',
         toDate: 'April 2023',
         responsibilities: [
