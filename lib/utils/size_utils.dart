@@ -9,7 +9,7 @@ class SizeUtils {
   static const double contentSectionsRadius = 8.0;
   static const double basicInfoPadding = 24.0;
 
-  static double maxConstraintWidth(double maxWidth) {
+  static double maxWidthConstraint(double maxWidth) {
     return maxWidth - pageMargins * 2 - rowColumnDivider;
   }
 }

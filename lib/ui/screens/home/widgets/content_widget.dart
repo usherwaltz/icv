@@ -50,7 +50,7 @@ class ContentWidget extends StatelessWidget {
                 double basicInfoWidth;
                 double workExperienceWidth;
                 if (constraints.maxWidth > 600) {
-                  final maxWidth = SizeUtils.maxConstraintWidth(constraints.maxWidth);
+                  final maxWidth = SizeUtils.maxWidthConstraint(constraints.maxWidth);
                   basicInfoWidth = maxWidth * 0.35;
                   workExperienceWidth = maxWidth * 0.65;
                   return _buildContentRow(
