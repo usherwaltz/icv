@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:universal_html/html.dart' as html;
 
-import '../../../assets/assets.dart';
-import '../../../blocs/blocs.dart';
-import '../../../utils/utils.dart';
-import '../home/widgets/widgets.dart';
+import '../../../../assets/assets.dart';
+import '../../../../blocs/blocs.dart';
+import '../../../../utils/utils.dart';
+import 'widgets.dart';
 
 class ContentWidget extends StatelessWidget {
   final bool forceWidth;
@@ -51,8 +51,8 @@ class ContentWidget extends StatelessWidget {
                 double workExperienceWidth;
                 if (constraints.maxWidth > 600) {
                   final maxWidth = SizeUtils.maxConstraintWidth(constraints.maxWidth);
-                  basicInfoWidth = maxWidth * 0.3;
-                  workExperienceWidth = maxWidth * 0.7;
+                  basicInfoWidth = maxWidth * 0.35;
+                  workExperienceWidth = maxWidth * 0.65;
                   return _buildContentRow(
                     basicInfoWidth: basicInfoWidth,
                     workExperienceWidth: workExperienceWidth,

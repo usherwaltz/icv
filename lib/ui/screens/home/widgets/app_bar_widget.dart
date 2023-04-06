@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/blocs.dart';
-import '../../../utils/utils.dart';
+import '../../../../blocs/blocs.dart';
+import '../../../../utils/utils.dart';
 import 'widgets.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {

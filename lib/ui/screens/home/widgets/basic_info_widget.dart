@@ -47,6 +47,8 @@ class BasicInfoWidget extends StatelessWidget {
           const _SkillsSection(),
           const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
           const _LanguagesSection(),
+          const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
+          const _HobbiesSection(),
         ],
       ),
     );
@@ -55,30 +57,19 @@ class BasicInfoWidget extends StatelessWidget {
 
 /// Section Wrapper, used to wrap each section in the [BasicInfoWidget]
 class _Section extends StatelessWidget {
-  final _TileWidget sectionDescription;
   final List<_TileWidget> children;
 
   const _Section({
     Key? key,
-    required this.sectionDescription,
     required this.children,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(SizeUtils.pageMargins),
+      padding: const EdgeInsets.symmetric(horizontal: SizeUtils.basicInfoPadding),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          sectionDescription,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              children: children,
-            ),
-          ),
-        ],
+        children: children,
       ),
     );
   }
@@ -97,13 +88,12 @@ class _AboutSection extends StatelessWidget {
     final timeZoneOffset = DateTime.now().timeZoneOffset;
 
     return _Section(
-      sectionDescription: const _TileWidget(
-        icon: Icons.info,
-        text: 'About',
-        bold: true,
-        paddingTop: 0.0,
-      ),
       children: [
+        const _TileWidget(
+          text: 'About',
+          bold: true,
+          paddingTop: SizeUtils.basicInfoPadding,
+        ),
         const _TileWidget(
           icon: FontAwesomeIcons.solidCircleUser,
           text: 'Nikola Jović',
@@ -133,7 +123,6 @@ class _AboutSection extends StatelessWidget {
           icon: FontAwesomeIcons.chartSimple,
           text:
               'Nikola is a Flutter developer with just over six years of experience since Flutter was in it\'s beta state. \n\nHe enjoys working on unique opportunities and writing clean, structured, performant, documented, and well-tested code. \n\nWith life-long love for programming, music and technology in general, you can expect creative and precise solutions to your future projects. \n\nAs a former student on the academy of arts, you can also expect some awesome tunes on those company team buildings.',
-          paddingBottom: 0.0,
         ),
       ],
     );
@@ -147,28 +136,31 @@ class _SkillsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _Section(
-      sectionDescription: _TileWidget(
-        icon: Icons.code,
-        text: 'Skills',
-        bold: true,
-        paddingTop: 0.0,
-      ),
       children: [
         _TileWidget(
-          text: 'Flutter',
+          text: 'Skills',
+          bold: true,
         ),
         _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
+          text: 'Flutter, Dart, BLoC, Provider, GetX',
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
+          text: 'Android, iOS, Web, Desktop',
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
           text: 'Git, Agile, CI/CD',
         ),
         _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
           text: 'OOP, Clean Code, MVC',
         ),
         _TileWidget(
-          text: 'Dart, PHP, JavaScript, HTML, CSS, Sass, MySQL, SQLite',
-        ),
-        _TileWidget(
-          text: 'Android, iOS, Web, Desktop',
-          paddingBottom: 0.0,
+          icon: FontAwesomeIcons.caretRight,
+          text: 'PHP, JavaScript, HTML, CSS, Sass, MySQL, SQLite',
+          paddingBottom: SizeUtils.basicInfoPadding,
         ),
       ],
     );
@@ -182,18 +174,52 @@ class _LanguagesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _Section(
-      sectionDescription: _TileWidget(
-        icon: Icons.translate,
-        text: 'Languages',
-        bold: true,
-      ),
       children: [
         _TileWidget(
+          text: 'Languages',
+          bold: true,
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
           text: 'English',
         ),
         _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
           text: 'Serbo-Croatian',
-          paddingBottom: 0.0,
+        ),
+      ],
+    );
+  }
+}
+
+/// Hobbies of the person speaks
+class _HobbiesSection extends StatelessWidget {
+  const _HobbiesSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const _Section(
+      children: [
+        _TileWidget(
+          text: 'Hobbies',
+          bold: true,
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
+          text: 'Guitar',
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
+          text: 'Hiking',
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
+          text: 'Sports',
+        ),
+        _TileWidget(
+          icon: FontAwesomeIcons.caretRight,
+          text: 'Gaming',
+          paddingBottom: SizeUtils.basicInfoPadding,
         ),
       ],
     );
@@ -215,8 +241,8 @@ class _TileWidget extends StatefulWidget {
     this.icon,
     this.bold = false,
     this.isEmail = false,
-    this.paddingTop = 10.0,
-    this.paddingBottom = 10.0,
+    this.paddingTop = 8.0,
+    this.paddingBottom = 8.0,
   }) : super(key: key);
 
   @override
@@ -241,15 +267,17 @@ class _TileWidgetState extends State<_TileWidget> {
       child: Row(
         crossAxisAlignment: widget.bold ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: widget.bold ? 24.0 : 20.0,
-            child: FaIcon(
-              widget.icon,
-              size: widget.bold ? 24.0 : 20.0,
-              color: Theme.of(context).colorScheme.primary,
+          if (widget.icon != null) ...[
+            SizedBox(
+              width: widget.bold ? 24.0 : 20.0,
+              child: FaIcon(
+                widget.icon,
+                size: 20.0,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-          ),
-          const SizedBox(width: 8.0),
+            const SizedBox(width: 8.0),
+          ],
           Flexible(
             child: GestureDetector(
               onTap: () => _showEmail(),
@@ -260,7 +288,7 @@ class _TileWidgetState extends State<_TileWidget> {
                         : '[ Click to show e-mail ]'
                     : widget.text,
                 style: TextStyle(
-                  fontSize: widget.bold ? 20.0 : 16.0,
+                  fontSize: widget.bold ? 24.0 : 16.0,
                   fontWeight: widget.bold ? FontWeight.bold : FontWeight.normal,
                 ),
               ),

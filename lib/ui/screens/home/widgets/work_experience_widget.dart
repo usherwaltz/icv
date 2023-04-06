@@ -77,8 +77,16 @@ List<ExperienceBlock> get experienceBlocks => [
         fromDate: 'May 2022',
         toDate: 'April 2023',
         responsibilities: [
-          'Working on a an in-house project.',
-          'Flutter Bloc, Animation, Firebase, Theming, VOiP, Push Notifications, Http Sockets etc.',
+          'Developed mobile applications using Flutter framework and programming language Dart.',
+          'Implemented BLoC pattern for managing state and data flow in the application.',
+          'Integrated Firebase services such as authentication, analytics, cloud messaging, and cloud storage in the application.',
+          'Customized app theming to provide a personalized user experience across the application.',
+          'Integrated VOiP calls and push notifications in the application for real-time communication with users.',
+          'Used Http Sockets to communicate with external APIs and fetch data dynamically.',
+          'Implemented animations to create engaging and intuitive user experiences.',
+          'Worked in a SCRUM team to manage project timelines and prioritize development tasks.',
+          'Worked at a startup company, providing innovative ideas and solutions for new products.',
+          'Participated in brainstorming sessions for UI/UX design and contributed to creating new ideas for improving the user experience.'
         ],
       ),
       const ExperienceBlock(
@@ -87,8 +95,11 @@ List<ExperienceBlock> get experienceBlocks => [
         fromDate: 'May 2020',
         toDate: 'May 2022',
         responsibilities: [
-          'Working on large scale web shops with PHP (Oxid and Symphony).',
-          'Communicating with a large team of developers and designers.',
+          'Worked in large teams managed under the SCRUM methodology.',
+          'Collaborated closely with clients to define new software requirements and ensure their needs were met.',
+          'Developed large-scale web shops using PHP frameworks such as Oxid and Symphony.',
+          'Developed "Kastner und Öhler" website\n- Austrian clothing company with 100 years of tradition.',
+          'Developed "Gigasport" website\n- Austrian sports equipment company with over 200,000 products.',
         ],
       ),
       const ExperienceBlock(
@@ -97,9 +108,10 @@ List<ExperienceBlock> get experienceBlocks => [
         fromDate: 'Oct 2019',
         toDate: 'May 2020',
         responsibilities: [
-          'Developing internal software for generating documents with Flutter and Php.',
-          'Servicing and maintaining all technical equipment within the company.',
-          'Redesigning / maintaining company websites and social media',
+          'Serviced and maintained all technical equipment within the company.',
+          'Maintained company social media accounts and improved company SEO rating.',
+          'Developed internal software for generating documents with Flutter and PHP.',
+          'Developed company websites with PHP (Yii2 Framework) and standard frontend tools (HTML, CSS, Jquery).',
         ],
       ),
       const ExperienceBlock(
@@ -108,7 +120,9 @@ List<ExperienceBlock> get experienceBlocks => [
         fromDate: 'May 2019',
         toDate: 'Oct 2019',
         responsibilities: [
-          'Creating pixel perfect Flutter themes for sale on Envato market.',
+          'Developed Flutter apps for clients.',
+          'Reviewed and tested colleagues themes.',
+          'Developed pixel perfect Flutter themes for sale on Envato market.',
         ],
       ),
       const ExperienceBlock(
@@ -117,9 +131,12 @@ List<ExperienceBlock> get experienceBlocks => [
         fromDate: 'May 2016',
         toDate: 'May 2019',
         responsibilities: [
-          'Developing mobile apps with Flutter.',
-          'Resolving technical difficulties that clients might have had with our products.',
-          'Designing key features that enhanced user experience.',
+          'Designed key features that enhanced user experience.',
+          'Maintained published apps, fixed bugs and added new features.',
+          'Resolved technical difficulties that clients might have had with our products.',
+          'Developed "BL Teatar"\n- mobile app for bookings seats in Banja Luka theatres.',
+          'Developed "Run & More"\n- mobile app for live tracking marathon runners and displaying event information.',
+          'Developed "Reblog"\n- mobile app for sharing and discovering content. Similar to old "Tumblr".',
         ],
       ),
     ];
@@ -180,7 +197,19 @@ class ExperienceBlock extends StatelessWidget {
           itemCount: responsibilities.length,
           itemBuilder: (context, index) {
             final responsibility = responsibilities[index];
-            return Text('•   $responsibility');
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  width: 18.0,
+                  child: Text('•'),
+                ),
+                Flexible(
+                  child: Text(responsibility),
+                ),
+              ],
+            );
           },
         ),
       ],

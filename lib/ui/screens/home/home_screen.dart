@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../utils/utils.dart';
-import '../widgets/widgets.dart';
+import 'widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
