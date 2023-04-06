@@ -167,9 +167,15 @@ class ContentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        BasicInfoWidget(width: basicInfoWidth),
+        BasicInfoWidget(
+          width: basicInfoWidth,
+          isColumn: true,
+        ),
         const SizedBox(height: SizeUtils.rowColumnDivider),
-        WorkExperienceWidget(width: workExperienceWidth),
+        WorkExperienceWidget(
+          width: workExperienceWidth,
+          isColumn: true,
+        ),
       ],
     );
   }

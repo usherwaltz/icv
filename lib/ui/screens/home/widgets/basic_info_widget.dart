@@ -10,11 +10,13 @@ import '../../../../utils/utils.dart';
 class BasicInfoWidget extends StatelessWidget {
   final double width;
   final bool isPDF;
+  final bool isColumn;
 
   const BasicInfoWidget({
     Key? key,
     required this.width,
     this.isPDF = false,
+    this.isColumn = false,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class BasicInfoWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
-        borderRadius: BorderRadius.circular(SizeUtils.contentSectionsRadius),
+        borderRadius: BorderRadius.circular(!isColumn ? SizeUtils.contentSectionsRadius : 0.0),
         boxShadow: [
           if (!isPDF)
             BoxShadow(

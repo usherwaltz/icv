@@ -9,11 +9,13 @@ import '../../../../utils/utils.dart';
 class WorkExperienceWidget extends StatelessWidget {
   final double width;
   final bool isPDF;
+  final bool isColumn;
 
   const WorkExperienceWidget({
     Key? key,
     required this.width,
     this.isPDF = false,
+    this.isColumn = false,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class WorkExperienceWidget extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
-        borderRadius: BorderRadius.circular(SizeUtils.contentSectionsRadius),
+        borderRadius: BorderRadius.circular(!isColumn ? SizeUtils.contentSectionsRadius : 0.0),
         boxShadow: [
           if (!isPDF)
             BoxShadow(
