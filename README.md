@@ -9,6 +9,11 @@ Anyone getting started with Flutter will quickly come to the conclusion that the
 
 In this project, my goal was to showcase how I would solve certain problems and write UI code.
 
+All text in this project is hardcoded and not fetched from any API or localized.
+Reason being is that I found it to be unnecessary for such a single purpose and very specific project.
+
+Had I opted to support localization, I would have used the [intl package](https://pub.dev/packages/intl) and the [flutter_localizations package](https://pub.dev/packages/flutter_localizations).
+
 Hold on, did I say "Getting started"...
 
 ## Getting Started
@@ -45,6 +50,6 @@ laterwards, if you make changes to classes annotated with `@freezed`,
 you can pass the `--delete-conflicting-outputs` argument to the above command
 
 #### 5. Run the app in web
-- run the following command:
+Run the following command:
   `flutter run -d chrome`
   *Note - I prefer to use google chrome, but you can run the project on different web browsers* 
