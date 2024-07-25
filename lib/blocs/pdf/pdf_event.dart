@@ -7,5 +7,6 @@ part of 'pdf_bloc.dart';
 class PDFEvent with _$PDFEvent {
   const factory PDFEvent.generated({
     required Widget widget,
+    required BuildContext context,
   }) = PDFGenerated;
 }

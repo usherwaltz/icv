@@ -13,11 +13,11 @@ class BasicInfoWidget extends StatelessWidget {
   final bool isColumn;
 
   const BasicInfoWidget({
-    Key? key,
+    super.key,
     required this.width,
     this.isPDF = false,
     this.isColumn = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,8 @@ class _Section extends StatelessWidget {
   final List<_TileWidget> children;
 
   const _Section({
-    Key? key,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +80,8 @@ class _Section extends StatelessWidget {
 class _AboutSection extends StatelessWidget {
   final bool isPDF;
   const _AboutSection({
-    Key? key,
     this.isPDF = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +131,7 @@ class _AboutSection extends StatelessWidget {
 
 /// Technical Skills about the person
 class _SkillsSection extends StatelessWidget {
-  const _SkillsSection({Key? key}) : super(key: key);
+  const _SkillsSection();
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +169,7 @@ class _SkillsSection extends StatelessWidget {
 
 /// Languages the person speaks
 class _LanguagesSection extends StatelessWidget {
-  const _LanguagesSection({Key? key}) : super(key: key);
+  const _LanguagesSection();
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +194,7 @@ class _LanguagesSection extends StatelessWidget {
 
 /// Hobbies of the person speaks
 class _HobbiesSection extends StatelessWidget {
-  const _HobbiesSection({Key? key}) : super(key: key);
+  const _HobbiesSection();
 
   @override
   Widget build(BuildContext context) {
@@ -238,14 +236,13 @@ class _TileWidget extends StatefulWidget {
   final double paddingBottom;
 
   const _TileWidget({
-    Key? key,
     required this.text,
     this.icon,
     this.bold = false,
     this.isEmail = false,
     this.paddingTop = 8.0,
     this.paddingBottom = 8.0,
-  }) : super(key: key);
+  });
 
   @override
   State<_TileWidget> createState() => _TileWidgetState();

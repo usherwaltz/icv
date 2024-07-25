@@ -6,12 +6,14 @@ import '../../../utils/utils.dart';
 import 'widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String title;
-
   const HomeScreen({
     super.key,
     required this.title,
+    this.forceWidth = false,
   });
+
+  final String title;
+  final bool forceWidth;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool loading = true;
+  final GlobalKey _contentKey = GlobalKey();
 
   @override
   void initState() {
@@ -54,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         return Stack(
           children: [
+            _buildGhostWidget(),
             _buildContent(),
             _buildGeneratingOverlay(state.uiAction),
             _buildLoadingOverlay(),
@@ -93,6 +97,23 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBarWidget(),
         body: ContentWidget(),
       ),
+    );
+  }
+
+  Widget _buildGhostWidget() {
+    return _buildContentWidget(
+      forceWidth: true,
+      globalKey: _contentKey,
+    );
+  }
+
+  Widget _buildContentWidget({
+    bool forceWidth = false,
+    GlobalKey? globalKey,
+  }) {
+    return ContentWidget(
+      forceWidth: forceWidth,
+      key: globalKey,
     );
   }
 

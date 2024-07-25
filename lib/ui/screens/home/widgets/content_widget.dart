@@ -9,11 +9,14 @@ import '../../../../utils/utils.dart';
 import 'widgets.dart';
 
 class ContentWidget extends StatelessWidget {
-  final bool forceWidth;
   const ContentWidget({
-    Key? key,
+    super.key,
     this.forceWidth = false,
-  }) : super(key: key);
+    this.globalKey,
+  });
+
+  final GlobalKey? globalKey;
+  final bool forceWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,12 @@ class ContentWidget extends StatelessWidget {
 
     return ScrollConfiguration(
       // Hiding scrollbar when generating PDF file
-      behavior:
-          !forceWidth ? ScrollConfiguration.of(context) : ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      behavior: !forceWidth
+          ? ScrollConfiguration.of(context)
+          : ScrollConfiguration.of(context).copyWith(
+              scrollbars: false,
+            ),
+      key: globalKey,
       child: SingleChildScrollView(
         padding: EdgeInsets.zero,
         child: Center(

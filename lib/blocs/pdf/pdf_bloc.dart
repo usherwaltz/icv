@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
         uiAction: BlocStateUIAction.inProgress,
       ));
 
-      await generatePDF(event.widget);
+      await _generatePDF(event.widget, event.context);
 
       emit(state.copyWith(
         uiAction: BlocStateUIAction.success,
@@ -41,11 +42,12 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
     }
   }
 
-  Future<void> generatePDF(Widget widget) async {
+  Future<void> _generatePDF(Widget widget, BuildContext context) async {
     try {
       final screenshotController = ScreenshotController();
       Uint8List pngImageBytes = await screenshotController.captureFromWidget(
         widget,
+        context: context,
         pixelRatio: 1.5,
         targetSize: const Size(SizeUtils.maxWidgetWidth, 2000),
       );

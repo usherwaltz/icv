@@ -6,7 +6,7 @@ import '../../../../utils/utils.dart';
 import 'widgets.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({Key? key}) : super(key: key);
+  const AppBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +67,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       onPressed: () {
         context.read<PDFBloc>().add(
               PDFGenerated(
+                context: context,
                 widget: Theme(
                   data: ColorUtils.lightTheme,
                   child: BlocProvider<ThemeBloc>.value(

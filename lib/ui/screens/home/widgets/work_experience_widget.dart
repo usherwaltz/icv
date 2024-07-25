@@ -7,16 +7,16 @@ import '../../../../utils/utils.dart';
 
 /// This class is used to display the work experience of the person.
 class WorkExperienceWidget extends StatelessWidget {
-  final double width;
-  final bool isPDF;
-  final bool isColumn;
-
   const WorkExperienceWidget({
-    Key? key,
+    super.key,
     required this.width,
     this.isPDF = false,
     this.isColumn = false,
-  }) : super(key: key);
+  });
+
+  final double width;
+  final bool isPDF;
+  final bool isColumn;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +73,22 @@ class WorkExperienceWidget extends StatelessWidget {
 }
 
 List<ExperienceBlock> get experienceBlocks => [
+      const ExperienceBlock(
+        company: 'SQA Consulting SEE',
+        position: 'Senior Flutter Develop',
+        fromDate: 'May 2023',
+        toDate: 'Current',
+        responsibilities: [
+          'Spearheading the development of multiple mobile applications concurrently within diverse teams, encompassing both internal initiatives and client projects.',
+          'Offering architectural expertise to devise innovative solutions tailored to the specific needs of each project.',
+          'Crafting Flutter plugins/packages and seamlessly integrating them into existing projects via Git submodules.',
+          'Designing fully configurable screens that can be updated remotely.',
+          'Implementing Firebase dynamic links for enhanced functionality.',
+          'Employing Provider state management to ensure efficient data flow within applications.',
+          'Setting up and managing multiple development environments using .ENV files, leveraging XCode build targets and Android build flavors for streamlined workflows.',
+          'Actively participating in Agile methodologies, particularly SCRUM, to foster collaboration and iterative development cycles.'
+        ],
+      ),
       const ExperienceBlock(
         company: 'The Symbol DOO',
         position: 'Senior Flutter Developer',
@@ -153,13 +169,13 @@ class ExperienceBlock extends StatelessWidget {
   final List<String> responsibilities;
 
   const ExperienceBlock({
-    Key? key,
+    super.key,
     required this.company,
     required this.position,
     required this.fromDate,
     required this.toDate,
     required this.responsibilities,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
