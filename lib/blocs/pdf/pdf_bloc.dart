@@ -48,8 +48,8 @@ class PDFBloc extends Bloc<PDFEvent, PDFState> {
       Uint8List pngImageBytes = await screenshotController.captureFromWidget(
         widget,
         context: context,
-        pixelRatio: 1.5,
-        targetSize: const Size(SizeUtils.maxWidgetWidth, 2000),
+        pixelRatio: 2.0,
+        targetSize: const Size(SizeUtils.maxWidgetWidth, 2300),
       );
 
       final pdf = pw.Document();
