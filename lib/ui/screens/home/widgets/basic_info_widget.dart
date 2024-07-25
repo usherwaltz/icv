@@ -289,6 +289,7 @@ class _TileWidgetState extends State<_TileWidget> {
                 style: TextStyle(
                   fontSize: widget.bold ? 24.0 : 16.0,
                   fontWeight: widget.bold ? FontWeight.bold : FontWeight.normal,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
             ),

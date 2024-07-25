@@ -68,12 +68,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         context.read<PDFBloc>().add(
               PDFGenerated(
                 context: context,
-                widget: Theme(
-                  data: ColorUtils.lightTheme,
-                  child: BlocProvider<ThemeBloc>.value(
-                    value: BlocProvider.of<ThemeBloc>(context),
-                    child: const ContentWidget(forceWidth: true),
-                  ),
+                widget: BlocProvider<ThemeBloc>.value(
+                  value: BlocProvider.of<ThemeBloc>(context),
+                  child: const ContentWidget(forceWidth: true),
                 ),
               ),
             );

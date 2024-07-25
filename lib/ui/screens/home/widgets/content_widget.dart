@@ -22,26 +22,29 @@ class ContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
 
-    return ScrollConfiguration(
-      // Hiding scrollbar when generating PDF file
-      behavior: !forceWidth
-          ? ScrollConfiguration.of(context)
-          : ScrollConfiguration.of(context).copyWith(
-              scrollbars: false,
+    return Theme(
+      data: forceWidth ? ColorUtils.lightTheme : Theme.of(context),
+      child: ScrollConfiguration(
+        // Hiding scrollbar when generating PDF file
+        behavior: !forceWidth
+            ? ScrollConfiguration.of(context)
+            : ScrollConfiguration.of(context).copyWith(
+                scrollbars: false,
+              ),
+        key: globalKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.zero,
+          child: Center(
+            child: Column(
+              children: [
+                _buildContent(context),
+                if (!forceWidth)
+                  _buildFooter(
+                    context,
+                    themeMode,
+                  ),
+              ],
             ),
-      key: globalKey,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.zero,
-        child: Center(
-          child: Column(
-            children: [
-              _buildContent(context),
-              if (!forceWidth)
-                _buildFooter(
-                  context,
-                  themeMode,
-                ),
-            ],
           ),
         ),
       ),

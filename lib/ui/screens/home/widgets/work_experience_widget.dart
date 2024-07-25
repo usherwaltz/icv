@@ -219,12 +219,22 @@ class ExperienceBlock extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 18.0,
-                  child: Text('•'),
+                  child: Text(
+                    '•',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ),
                 Flexible(
-                  child: Text(responsibility),
+                  child: Text(
+                    responsibility,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                  ),
                 ),
               ],
             );
