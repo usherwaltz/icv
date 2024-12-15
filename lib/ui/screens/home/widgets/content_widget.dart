@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:universal_html/html.dart' as html;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../assets/assets.dart';
 import '../../../../blocs/blocs.dart';
@@ -20,7 +20,8 @@ class ContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+    final themeMode = context
+        .select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
 
     return Theme(
       data: forceWidth ? ColorUtils.lightTheme : Theme.of(context),
@@ -60,7 +61,8 @@ class ContentWidget extends StatelessWidget {
                 double basicInfoWidth;
                 double workExperienceWidth;
                 if (constraints.maxWidth > 600) {
-                  final maxWidth = SizeUtils.maxWidthConstraint(constraints.maxWidth);
+                  final maxWidth =
+                      SizeUtils.maxWidthConstraint(constraints.maxWidth);
                   basicInfoWidth = maxWidth * 0.35;
                   workExperienceWidth = maxWidth * 0.65;
                   return _buildContentRow(
@@ -101,7 +103,8 @@ class ContentWidget extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: SizeUtils.maxWidgetWidth),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SizeUtils.pageMargins),
+            padding:
+                const EdgeInsets.symmetric(horizontal: SizeUtils.pageMargins),
             child: _buildFooterContent(context),
           ),
         ),
@@ -130,7 +133,7 @@ class ContentWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            html.window.open('https://github.com/usherwaltz/nikolajovic', "_blank");
+            openNewTab('https://github.com/usherwaltz/nikolajovic');
           },
           child: Text(
             'Source Code',
@@ -141,6 +144,18 @@ class ContentWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void openNewTab(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        webOnlyWindowName: '_blank', // This opens the link in a new tab
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget _buildContentRow({
