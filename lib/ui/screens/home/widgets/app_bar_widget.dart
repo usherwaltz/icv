@@ -10,7 +10,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+    final themeMode = context
+        .select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
 
     return Container(
       decoration: BoxDecoration(
@@ -70,7 +71,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 context: context,
                 widget: BlocProvider<ThemeBloc>.value(
                   value: BlocProvider.of<ThemeBloc>(context),
-                  child: const ContentWidget(forceWidth: true),
+                  child: const ContentWidget(),
                 ),
               ),
             );
@@ -86,12 +87,16 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             context.read<ThemeBloc>().add(
                   ThemeChanged(
-                    themeMode: themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark,
+                    themeMode: themeMode == ThemeMode.dark
+                        ? ThemeMode.light
+                        : ThemeMode.dark,
                   ),
                 );
           },
           child: Icon(
-            themeMode == ThemeMode.dark ? Icons.wb_sunny : Icons.nightlight_round,
+            themeMode == ThemeMode.dark
+                ? Icons.wb_sunny
+                : Icons.nightlight_round,
             size: 26.0,
           ),
         );

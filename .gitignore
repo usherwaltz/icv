@@ -46,3 +46,6 @@ app.*.map.json
 # Ignore generated files
 *.g.dart
 *.freezed.dart
+
+# Ignore l10n generated files
+lib/l10n/generated
