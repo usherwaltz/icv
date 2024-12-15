@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nikolajovic/main.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../utils/utils.dart';
@@ -9,11 +10,9 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
     required this.title,
-    this.forceWidth = false,
   });
 
   final String title;
-  final bool forceWidth;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -80,14 +79,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return SnackBar(
       content: Center(
         child: Text(
-          !isError ? 'PDF Successfully Generated' : 'Oops, something went wrong',
+          !isError ? strings.pdfSuccess : strings.genericErrorText,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: Theme.of(context).colorScheme.onError,
               ),
         ),
       ),
       duration: const Duration(seconds: 2),
-      backgroundColor: !isError ? Colors.green : Theme.of(context).colorScheme.error,
+      backgroundColor:
+          !isError ? Colors.green : Theme.of(context).colorScheme.error,
     );
   }
 
@@ -102,17 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildGhostWidget() {
     return _buildContentWidget(
-      forceWidth: true,
       globalKey: _contentKey,
     );
   }
 
   Widget _buildContentWidget({
-    bool forceWidth = false,
     GlobalKey? globalKey,
   }) {
     return ContentWidget(
-      forceWidth: forceWidth,
       key: globalKey,
     );
   }

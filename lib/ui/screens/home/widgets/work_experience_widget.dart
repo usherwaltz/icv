@@ -10,30 +10,29 @@ class WorkExperienceWidget extends StatelessWidget {
   const WorkExperienceWidget({
     super.key,
     required this.width,
-    this.isPDF = false,
     this.isColumn = false,
   });
 
   final double width;
-  final bool isPDF;
   final bool isColumn;
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+    final themeMode = context
+        .select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
 
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
-        borderRadius: BorderRadius.circular(!isColumn ? SizeUtils.contentSectionsRadius : 0.0),
+        color: ColorUtils.getContainerColor(themeMode),
+        borderRadius: BorderRadius.circular(
+            !isColumn ? SizeUtils.contentSectionsRadius : 0.0),
         boxShadow: [
-          if (!isPDF)
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8.0,
-              offset: const Offset(0, 4),
-            ),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8.0,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Padding(
@@ -61,7 +60,8 @@ class WorkExperienceWidget extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,
               shrinkWrap: true,
-              separatorBuilder: (context, index) => const SizedBox(height: 40.0),
+              separatorBuilder: (context, index) =>
+                  const SizedBox(height: 40.0),
               itemCount: experienceBlocks.length,
               itemBuilder: (context, index) => experienceBlocks[index],
             ),

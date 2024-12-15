@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/blocs.dart';
+import 'l10n/generated/app_localizations.dart';
 import 'ui/screens/screens.dart';
 import 'utils/utils.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+late AppLocalizations strings;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,14 +31,24 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocSelector<ThemeBloc, ThemeState, ThemeMode>(
         selector: (state) => state.themeMode,
-        builder: (context, themeMode) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Nikola Jović',
-          theme: ColorUtils.lightTheme,
-          darkTheme: ColorUtils.darkTheme,
-          themeMode: themeMode,
-          home: const HomeScreen(title: 'Nikola Jović'),
-        ),
+        builder: (context, themeMode) {
+          return MaterialApp(
+            localizationsDelegates: [AppLocalizations.delegate],
+            supportedLocales: [Locale('en')],
+            debugShowCheckedModeBanner: false,
+            title: 'Nikola Jović',
+            theme: ColorUtils.lightTheme,
+            darkTheme: ColorUtils.darkTheme,
+            themeMode: themeMode,
+            home: Builder(
+              builder: (context) {
+                strings = AppLocalizations.of(context)!;
+
+                return const HomeScreen(title: 'Nikola Jović');
+              },
+            ),
+          );
+        },
       ),
     );
   }

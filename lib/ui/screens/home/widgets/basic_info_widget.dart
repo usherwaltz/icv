@@ -9,47 +9,55 @@ import '../../../../utils/utils.dart';
 /// This class is used to display basic information about the person.
 class BasicInfoWidget extends StatelessWidget {
   final double width;
-  final bool isPDF;
   final bool isColumn;
 
   const BasicInfoWidget({
     super.key,
     required this.width,
-    this.isPDF = false,
     this.isColumn = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = context.select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
+    final themeMode = context
+        .select<ThemeBloc, ThemeMode>((ThemeBloc bloc) => bloc.state.themeMode);
 
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: !isPDF ? ColorUtils.getContainerColor(themeMode) : Colors.transparent,
-        borderRadius: BorderRadius.circular(!isColumn ? SizeUtils.contentSectionsRadius : 0.0),
+        color: ColorUtils.getContainerColor(themeMode),
+        borderRadius: BorderRadius.circular(
+            !isColumn ? SizeUtils.contentSectionsRadius : 0.0),
         boxShadow: [
-          if (!isPDF)
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8.0,
-              offset: const Offset(0, 4),
-            ),
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8.0,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            Assets.nikola,
-            width: width,
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8.0),
+              topRight: Radius.circular(8.0),
+            ),
+            child: Image.asset(
+              Assets.nikola,
+              width: width,
+            ),
           ),
-          _AboutSection(isPDF: isPDF),
-          const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
+          _AboutSection(),
+          const Divider(
+              indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
           const _SkillsSection(),
-          const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
+          const Divider(
+              indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
           const _LanguagesSection(),
-          const Divider(indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
+          const Divider(
+              indent: SizeUtils.pageMargins, endIndent: SizeUtils.pageMargins),
           const _HobbiesSection(),
         ],
       ),
@@ -68,7 +76,8 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: SizeUtils.basicInfoPadding),
+      padding:
+          const EdgeInsets.symmetric(horizontal: SizeUtils.basicInfoPadding),
       child: Column(
         children: children,
       ),
@@ -78,10 +87,7 @@ class _Section extends StatelessWidget {
 
 /// Basic Info about the person
 class _AboutSection extends StatelessWidget {
-  final bool isPDF;
-  const _AboutSection({
-    this.isPDF = false,
-  });
+  const _AboutSection();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +111,7 @@ class _AboutSection extends StatelessWidget {
         _TileWidget(
           icon: FontAwesomeIcons.solidEnvelope,
           text: 'nikola@jovic.id',
-          isEmail: !isPDF,
+          isEmail: true,
         ),
         const _TileWidget(
           icon: FontAwesomeIcons.house,
@@ -262,9 +268,11 @@ class _TileWidgetState extends State<_TileWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0.0, widget.paddingTop, 0.0, widget.paddingBottom),
+      padding: EdgeInsets.fromLTRB(
+          0.0, widget.paddingTop, 0.0, widget.paddingBottom),
       child: Row(
-        crossAxisAlignment: widget.bold ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            widget.bold ? CrossAxisAlignment.center : CrossAxisAlignment.start,
         children: [
           if (widget.icon != null) ...[
             SizedBox(
