@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nikolajovic/main.dart';
+import 'package:icv/main.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../utils/utils.dart';

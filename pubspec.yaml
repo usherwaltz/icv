@@ -1,5 +1,5 @@
-name: nikolajovic
-description: Nikola Jović Curriculum Vitae
+name: icv
+description: CV generation platform
 publish_to: 'none'
 version: 1.0.1+1
 
