@@ -16,7 +16,7 @@
 - [x] Set up development database (PostgreSQL) - ✅ PostgreSQL running via Docker Compose on port 8090
 - [x] Configure development environment variables - ✅ Environment variables documented, SMTP/OAuth placeholders added, setup guide created
 - [x] Set up code formatting and linting rules - ✅ dart format and analyze configured
-- [ ] Initialize Git repository (if not already done)
+- [x] Initialize Git repository (if not already done) - ✅ Git initialized, old project moved to icv_old branch, new README created
 - [ ] Set up development branch structure
 
 ### 1.2 Dependency Management
