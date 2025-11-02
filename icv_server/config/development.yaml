@@ -5,6 +5,13 @@
 #
 # When running your server locally, the server ports are the same as the public
 # facing ports.
+#
+# PHASE 2 CONFIGURATION NOTES:
+# - Database connection: Configured below (connects to PostgreSQL via Docker Compose)
+# - Database password: Must be set in config/passwords.yaml under 'development' section
+# - SMTP/Email settings: Configure in config/passwords.yaml (for password reset emails)
+# - OAuth credentials: Configure in config/passwords.yaml (Google/Apple Sign-In)
+# - Authentication module: Configure in lib/server.dart (see AuthConfig.set())
 
 # Configuration for the main API server.
 apiServer:
@@ -27,7 +34,11 @@ webServer:
   publicPort: 8082
   publicScheme: http
 
-# This is the database setup for your server.
+# Database configuration for PostgreSQL
+# Database is running via Docker Compose on port 8090
+# Password must be configured in config/passwords.yaml:
+#   development:
+#     databasePassword: 'your-postgres-password'
 database:
   host: localhost
   port: 8090
@@ -36,7 +47,9 @@ database:
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 
-# This is the setup for Redis.
+# Redis configuration (currently disabled)
+# Enable this when you need caching or session storage
+# Password must be configured in config/passwords.yaml if Redis requires authentication
 redis:
   enabled: false
   host: localhost
@@ -44,7 +57,7 @@ redis:
   #user: # defaults to empty
   #requireSsl: true # defaults to false
 
-maxRequestSize: 524288 # The maximum size of requests allowed in bytes
+maxRequestSize: 524288 # The maximum size of requests allowed in bytes (512 KB)
 
 sessionLogs:
   persistentEnabled: true
@@ -56,3 +69,34 @@ sessionLogs:
 #futureCall:
 #  concurrencyLimit: 1 # Defaults to 1, a negative or null value removes the limit
 #  scanInterval: 5000 # Unit in milliseconds, defaults to 5000
+
+# ============================================================================
+# PHASE 2.1: Additional Configuration Notes
+# ============================================================================
+#
+# EMAIL/SMTP CONFIGURATION (for password reset - Phase 11):
+# Add the following to config/passwords.yaml under 'development' section:
+#   emailPasswordPepper: 'your-secret-pepper-string'
+#   smtpHost: 'smtp.example.com'
+#   smtpPort: 587
+#   smtpUsername: 'your-email@example.com'
+#   smtpPassword: 'your-smtp-password'
+#   smtpUseTls: true
+#
+# OAUTH PROVIDER CONFIGURATION (for Google/Apple Sign-In - Phase 11):
+# Add the following to config/passwords.yaml under 'development' section:
+#   googleClientId: 'your-google-client-id'
+#   googleClientSecret: 'your-google-client-secret'
+#   appleClientId: 'your-apple-client-id'
+#   appleTeamId: 'your-apple-team-id'
+#   appleKeyId: 'your-apple-key-id'
+#   applePrivateKey: 'your-apple-private-key'
+#
+# Note: OAuth credentials are placeholders initially (Phase 2.1), will be
+#       configured with actual credentials in Phase 11.
+#
+# AUTHENTICATION MODULE CONFIGURATION:
+# The serverpod_auth module is configured in lib/server.dart.
+# See the TODO comments in server.dart for Phase 11 implementation details.
+#
+# ============================================================================

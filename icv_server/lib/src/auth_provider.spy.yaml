@@ -1,0 +1,9 @@
+# Enum for authentication providers
+enum: AuthProvider
+serialized: byName
+default: email
+values:
+  - email
+  - google
+  - apple
+

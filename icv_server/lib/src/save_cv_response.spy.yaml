@@ -1,0 +1,7 @@
+# Save CV response model
+class: SaveCvResponse
+fields:
+  success: bool
+  cvId: int?
+  message: String?
+

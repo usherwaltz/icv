@@ -1,0 +1,19 @@
+# User table for cloud backup users
+class: User
+table: users
+fields:
+  email: String
+  passwordHash: String?
+  authProvider: AuthProvider, default=email
+  providerId: String?
+  themePreference: String?  # JSON string for theme preferences
+  cloudBackupEnabled: bool, default=false
+  privacyPolicyAcceptedAt: DateTime?
+  createdAt: DateTime, default=now
+  updatedAt: DateTime, default=now
+
+indexes:
+  user_email_idx:
+    fields: email
+    unique: true
+

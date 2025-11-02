@@ -29,7 +29,7 @@ iCV is a full-stack application that provides an intuitive interface for creatin
 - **Frontend**: Flutter (iOS, Android, Web)
 - **Backend**: Serverpod (Dart-based backend framework)
 - **UI Components**: shadcn_ui (Flutter port)
-- **State Management**: Flutter Riverpod
+- **State Management**: Flutter Bloc
 - **PDF Generation**: Client-side PDF generation
 - **Database**: PostgreSQL (via Serverpod, for cloud backup users)
 
@@ -102,7 +102,7 @@ icv/
 
 - **Clean Architecture**: Separation of concerns with feature-based organization
 - **Repository Pattern**: Data layer abstraction
-- **Riverpod State Management**: Reactive state management
+- **Bloc State Management**: Business Logic Component pattern for state management
 - **Serverpod Backend**: Type-safe API communication
 
 ## Documentation

@@ -1,0 +1,10 @@
+# User info response model for authentication endpoints
+class: UserInfo
+fields:
+  id: int
+  email: String
+  authProvider: AuthProvider
+  themePreference: String?
+  cloudBackupEnabled: bool
+  privacyPolicyAcceptedAt: DateTime?
+

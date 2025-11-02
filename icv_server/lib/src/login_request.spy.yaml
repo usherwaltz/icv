@@ -1,0 +1,6 @@
+# Login request model for user authentication
+class: LoginRequest
+fields:
+  email: String
+  password: String
+

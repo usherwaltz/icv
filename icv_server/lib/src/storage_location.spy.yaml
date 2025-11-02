@@ -1,0 +1,8 @@
+# Enum for CV storage location
+enum: StorageLocation
+serialized: byName
+default: local
+values:
+  - local
+  - cloud
+

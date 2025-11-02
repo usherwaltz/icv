@@ -1,0 +1,9 @@
+# CV summary model for listing user's CVs
+class: CvSummary
+fields:
+  id: int
+  templateId: String
+  saveTimestamp: DateTime
+  updatedAt: DateTime
+  storageLocation: StorageLocation
+

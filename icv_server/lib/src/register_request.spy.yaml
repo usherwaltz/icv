@@ -1,0 +1,6 @@
+# Register request model for user registration
+class: RegisterRequest
+fields:
+  email: String
+  password: String
+

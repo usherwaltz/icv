@@ -1,0 +1,6 @@
+# Load CV request model
+class: LoadCvRequest
+fields:
+  userId: int
+  cvId: int
+

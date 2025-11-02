@@ -1,0 +1,6 @@
+# Delete CV request model
+class: DeleteCvRequest
+fields:
+  userId: int
+  cvId: int
+

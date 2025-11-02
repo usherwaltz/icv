@@ -101,6 +101,12 @@ void withServerpod(
 }
 
 class TestEndpoints {
+  late final _AuthEndpoint auth;
+
+  late final _CvEndpoint cv;
+
+  late final _UserEndpoint user;
+
   late final _GreetingEndpoint greeting;
 }
 
@@ -111,11 +117,44 @@ class _InternalTestEndpoints extends TestEndpoints
     _i2.SerializationManager serializationManager,
     _i2.EndpointDispatch endpoints,
   ) {
+    auth = _AuthEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    cv = _CvEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    user = _UserEndpoint(
+      endpoints,
+      serializationManager,
+    );
     greeting = _GreetingEndpoint(
       endpoints,
       serializationManager,
     );
   }
+}
+
+class _AuthEndpoint {
+  _AuthEndpoint(
+    _endpointDispatch,
+    _serializationManager,
+  );
+}
+
+class _CvEndpoint {
+  _CvEndpoint(
+    _endpointDispatch,
+    _serializationManager,
+  );
+}
+
+class _UserEndpoint {
+  _UserEndpoint(
+    _endpointDispatch,
+    _serializationManager,
+  );
 }
 
 class _GreetingEndpoint {

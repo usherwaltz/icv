@@ -1,0 +1,10 @@
+# Save CV request model
+class: SaveCvRequest
+fields:
+  userId: int?
+  templateId: String
+  cvData: String  # JSON string containing all form fields
+  pdfThemeSettings: String  # JSON string for PDF theme settings
+  sectionOrder: String  # JSON array as string for section order
+  storageLocation: StorageLocation
+

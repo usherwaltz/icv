@@ -12,7 +12,60 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:icv_client/src/protocol/greeting.dart' as _i3;
-import 'protocol.dart' as _i4;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i4;
+import 'protocol.dart' as _i5;
+
+/// Authentication endpoint for handling user authentication operations.
+///
+/// This endpoint provides methods for:
+/// - User registration (email/password)
+/// - User login (email/password)
+/// - Password reset functionality
+/// - OAuth authentication (Google, Apple)
+/// - Password change
+///
+/// Implementation will be completed in Phase 11: Authentication System - Backend
+/// {@category Endpoint}
+class EndpointAuth extends _i1.EndpointRef {
+  EndpointAuth(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'auth';
+}
+
+/// CV management endpoint for handling CV operations.
+///
+/// This endpoint provides methods for:
+/// - Saving CV data to cloud storage
+/// - Loading CV data from cloud storage
+/// - Listing user's CVs
+/// - Deleting CVs
+///
+/// Implementation will be completed in Phase 2: Backend Foundation (Serverpod)
+/// and Phase 13: Cloud Backup Integration
+/// {@category Endpoint}
+class EndpointCv extends _i1.EndpointRef {
+  EndpointCv(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'cv';
+}
+
+/// User management endpoint for handling user profile operations.
+///
+/// This endpoint provides methods for:
+/// - Getting user profile information
+/// - Updating user profile
+/// - Deleting user account
+///
+/// Implementation will be completed in Phase 11: Authentication System - Backend
+/// {@category Endpoint}
+class EndpointUser extends _i1.EndpointRef {
+  EndpointUser(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'user';
+}
 
 /// This is an example endpoint that returns a greeting message through
 /// its [hello] method.
@@ -32,6 +85,14 @@ class EndpointGreeting extends _i1.EndpointRef {
       );
 }
 
+class Modules {
+  Modules(Client client) {
+    auth = _i4.Caller(client);
+  }
+
+  late final _i4.Caller auth;
+}
+
 class Client extends _i1.ServerpodClientShared {
   Client(
     String host, {
@@ -48,7 +109,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i4.Protocol(),
+          _i5.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -58,14 +119,32 @@ class Client extends _i1.ServerpodClientShared {
           disconnectStreamsOnLostInternetConnection:
               disconnectStreamsOnLostInternetConnection,
         ) {
+    auth = EndpointAuth(this);
+    cv = EndpointCv(this);
+    user = EndpointUser(this);
     greeting = EndpointGreeting(this);
+    modules = Modules(this);
   }
+
+  late final EndpointAuth auth;
+
+  late final EndpointCv cv;
+
+  late final EndpointUser user;
 
   late final EndpointGreeting greeting;
 
-  @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'greeting': greeting};
+  late final Modules modules;
 
   @override
-  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'auth': auth,
+        'cv': cv,
+        'user': user,
+        'greeting': greeting,
+      };
+
+  @override
+  Map<String, _i1.ModuleEndpointCaller> get moduleLookup =>
+      {'auth': modules.auth};
 }

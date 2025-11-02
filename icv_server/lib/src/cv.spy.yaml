@@ -1,0 +1,18 @@
+# CV table for storing CV data
+class: CV
+table: cvs
+fields:
+  userId: int?, relation(parent=users)
+  templateId: String
+  cvData: String  # JSON string containing all form fields
+  pdfThemeSettings: String  # JSON string for PDF theme settings
+  sectionOrder: String  # JSON array as string for section order
+  storageLocation: StorageLocation, default=local
+  saveTimestamp: DateTime, default=now
+  createdAt: DateTime, default=now
+  updatedAt: DateTime, default=now
+
+indexes:
+  cv_user_id_idx:
+    fields: userId
+

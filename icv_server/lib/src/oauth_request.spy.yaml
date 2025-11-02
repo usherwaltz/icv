@@ -1,0 +1,6 @@
+# OAuth authentication request model
+class: OAuthRequest
+fields:
+  provider: AuthProvider
+  token: String
+

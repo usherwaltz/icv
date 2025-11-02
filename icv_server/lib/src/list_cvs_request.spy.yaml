@@ -1,0 +1,5 @@
+# List CVs request model
+class: ListCvsRequest
+fields:
+  userId: int
+

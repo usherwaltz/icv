@@ -1,0 +1,6 @@
+# Delete CV response model
+class: DeleteCvResponse
+fields:
+  success: bool
+  message: String?
+
